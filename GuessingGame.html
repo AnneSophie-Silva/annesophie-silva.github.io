@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Guess the Number Game</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 20px; 
+            padding: 20px; 
+            text-align: center;
+        }
+
+        .container {
+            margin: auto;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        mark {
+            background-color: #ffc107;
+            padding: 3px;
+        }
+
+        #result {
+            text-align: center;
+
+        }
+
+        .text-success,
+        .text-info,
+        .text-danger {
+            display: inline-block;
+            margin-bottom: 0;
+        }
+        
+    </style>
+</head>
+
+<body onload="generate_number()">
+
+    <div class="container">
+        <h1 class="mt-3 mb-4">Welcome to <b>Guess the Number Game</b></h1>
+        <p>I've picked a number between 1 and 100.
+        <p>
+        <p>Can you guess it? Start playing!</p>
+
+        <button class="btn btn-primary" onclick="play()">Take a Guess</button>
+        <div id="result" class="mt-3 text-center"></div>
+    </div>
+
+    <script>
+        var guess;
+        var random;
+        var counter = 0;
+        let result = document.querySelector('#result');
+        count_higher = 1;
+        count_lower = 1;
+
+        function generate_number() {
+            random = Math.trunc(Math.random() * 100) + 1;
+        }
+
+        function play() {
+            guess = Number(window.prompt("What's your guess?: "));
+
+            counter++;
+
+            if (random == guess) {
+                result.innerHTML += `<p class="text-success">Congratulations! The generated number was <b>${random}</b>. You won with <u>${counter} clicks</u>! <br> Guessed a lower number ${count_lower} times, and a higher number ${count_higher} times.</p><p>&nbsp;</p>`;
+
+            } else if (random < guess) {
+                result.innerHTML += `<p class="text-danger">My number is <mark><b>lower</b></mark> than your guess (${guess}). Try again! You've clicked ${counter} times.</p><p>&nbsp;</p>`;
+                count_lower++
+            } else {
+                result.innerHTML += `<p class="text-danger">My number is <mark><b>higher</b></mark> than your guess (${guess}). Try again! You've clicked ${counter} times.</p><p>&nbsp;</p>`;
+                count_higher++
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
